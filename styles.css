@@ -1,0 +1,900 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300&display=swap');
+
+/* ══════════════════════════════════════════════════════════
+   estilosGymtracker.css
+   Estilos de la app GymTracker 2026
+   Autora: Nicole Llumpo
+══════════════════════════════════════════════════════════ */
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html { scroll-behavior: smooth; }
+
+/* ── Variables de diseño ────────────────────────────────── */
+:root {
+  --colorFondo:        #0e0f12;
+  --colorSuperficie1:  #16181f;
+  --colorSuperficie2:  #1e2029;
+  --colorBorde:        #2a2c38;
+  --colorAcento:       #c8f135;   /* lima */
+  --colorAcento2:      #ff6b35;   /* naranja */
+  --colorAcento3:      #5b8dee;   /* azul */
+  --colorTexto:        #eeeef0;
+  --colorTextoMuted:   #666876;
+  --colorPeligro:      #ff4757;
+  --colorExito:        #2ed573;
+  --fuenteTitulo:      'Bebas Neue', sans-serif;
+  --fuenteCuerpo:      'DM Sans', sans-serif;
+  --fuenteMono:        'DM Mono', monospace;
+  --radiosBorde:       8px;
+}
+
+/* ── Base ───────────────────────────────────────────────── */
+body {
+  font-family: var(--fuenteCuerpo);
+  background: var(--colorFondo);
+  color: var(--colorTexto);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: .6;
+}
+
+/* ── Navegación ─────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14, 15, 18, .92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--colorBorde);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .75rem 1.5rem;
+}
+
+.logoNav {
+  font-family: var(--fuenteTitulo);
+  font-size: 1.6rem;
+  letter-spacing: .05em;
+  color: var(--colorAcento);
+  line-height: 1;
+}
+
+.logoNavSufijo {
+  color: var(--colorTexto);
+  opacity: .4;
+}
+
+.contenedorPestaniasNav {
+  display: flex;
+  gap: .25rem;
+}
+
+.pestaniaNav {
+  font-family: var(--fuenteMono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .45rem .9rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--colorTextoMuted);
+  transition: all .15s;
+}
+
+.pestaniaNav:hover {
+  color: var(--colorTexto);
+  background: var(--colorSuperficie2);
+}
+
+.pestaniaNav.activa {
+  background: var(--colorAcento);
+  color: #0e0f12;
+  font-weight: 500;
+}
+
+/* ── Layout principal ───────────────────────────────────── */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+/* ── Pantallas ──────────────────────────────────────────── */
+.pantalla { display: none; }
+.pantalla.activa { display: block; }
+
+/* ── Títulos de sección ─────────────────────────────────── */
+.tituloPantalla {
+  font-family: var(--fuenteTitulo);
+  font-size: 2.5rem;
+  letter-spacing: .04em;
+  margin-bottom: .25rem;
+}
+
+.subtituloPantalla {
+  font-size: .8rem;
+  color: var(--colorTextoMuted);
+  font-family: var(--fuenteMono);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Barra de fecha ─────────────────────────────────────── */
+.barraFecha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1rem 1.25rem;
+  background: var(--colorSuperficie1);
+  border: 1px solid var(--colorBorde);
+  border-radius: var(--radiosBorde);
+}
+
+.tituloDiaSemana {
+  font-family: var(--fuenteTitulo);
+  font-size: 2rem;
+  letter-spacing: .05em;
+  color: var(--colorAcento);
+  line-height: 1;
+}
+
+.fechaLegible {
+  font-size: .78rem;
+  color: var(--colorTextoMuted);
+  margin-top: .15rem;
+  font-family: var(--fuenteMono);
+}
+
+.inputFecha {
+  font-family: var(--fuenteMono);
+  font-size: .8rem;
+  padding: .5rem .8rem;
+  background: var(--colorSuperficie2);
+  border: 1px solid var(--colorBorde);
+  border-radius: 4px;
+  color: var(--colorTexto);
+  cursor: pointer;
+  outline: none;
+}
+
+.inputFecha:focus { border-color: var(--colorAcento); }
+
+/* ── Tarjetas ───────────────────────────────────────────── */
+.tarjeta {
+  background: var(--colorSuperficie1);
+  border: 1px solid var(--colorBorde);
+  border-radius: var(--radiosBorde);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.cabeceraTarjeta {
+  padding: .875rem 1.25rem;
+  border-bottom: 1px solid var(--colorBorde);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tituloTarjeta {
+  font-family: var(--fuenteTitulo);
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.etiquetaTarjeta {
+  font-family: var(--fuenteMono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  background: var(--colorAcento);
+  color: #0e0f12;
+  padding: .15rem .5rem;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.cuerpoTarjeta { padding: 1.25rem; }
+
+/* ── Grillas ────────────────────────────────────────────── */
+.grilla2Columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.grilla3Columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .grilla2Columnas,
+  .grilla3Columnas { grid-template-columns: 1fr; }
+  .contenedorPestaniasNav { flex-wrap: wrap; }
+}
+
+/* ── Campos de formulario ───────────────────────────────── */
+.campoFormulario {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+label {
+  font-family: var(--fuenteMono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--colorTextoMuted);
+}
+
+input[type=text],
+input[type=number],
+select,
+textarea {
+  font-family: var(--fuenteCuerpo);
+  font-size: .875rem;
+  padding: .55rem .75rem;
+  background: var(--colorSuperficie2);
+  border: 1px solid var(--colorBorde);
+  border-radius: 4px;
+  color: var(--colorTexto);
+  width: 100%;
+  transition: border-color .15s;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--colorAcento);
+}
+
+select option { background: var(--colorSuperficie2); }
+
+textarea {
+  resize: vertical;
+  min-height: 72px;
+  line-height: 1.5;
+}
+
+.inputSoloLectura { opacity: .5; }
+
+/* ── Estrellas de energía ───────────────────────────────── */
+.contenedorEstrellas {
+  display: flex;
+  gap: .35rem;
+  margin-top: .2rem;
+}
+
+.estrella {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--colorBorde);
+  background: var(--colorSuperficie2);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+  color: var(--colorTextoMuted);
+  font-family: var(--fuenteMono);
+  font-weight: 500;
+}
+
+.estrella.activa {
+  background: var(--colorAcento);
+  border-color: var(--colorAcento);
+  color: #0e0f12;
+}
+
+/* ── Pills de selección ─────────────────────────────────── */
+.grupoPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .2rem;
+}
+
+.pill {
+  font-family: var(--fuenteMono);
+  font-size: .7rem;
+  letter-spacing: .05em;
+  padding: .35rem .75rem;
+  border-radius: 20px;
+  border: 1px solid var(--colorBorde);
+  background: var(--colorSuperficie2);
+  color: var(--colorTextoMuted);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.pill:hover {
+  border-color: var(--colorTexto);
+  color: var(--colorTexto);
+}
+
+.pill.seleccionada {
+  background: var(--colorAcento2);
+  border-color: var(--colorAcento2);
+  color: #fff;
+}
+
+/* ── Tira de estadísticas ───────────────────────────────── */
+.tiraEstadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: .75rem;
+  margin-top: 1.25rem;
+}
+
+.tarjetaEstadistica {
+  background: var(--colorSuperficie2);
+  border: 1px solid var(--colorBorde);
+  border-radius: 6px;
+  padding: .875rem 1rem;
+}
+
+.valorEstadistica {
+  font-family: var(--fuenteTitulo);
+  font-size: 2rem;
+  letter-spacing: .03em;
+  line-height: 1;
+}
+
+.valorEstadistica.lima   { color: var(--colorAcento); }
+.valorEstadistica.naranja { color: var(--colorAcento2); }
+.valorEstadistica.azul   { color: var(--colorAcento3); }
+.valorEstadistica.rojo   { color: var(--colorPeligro); }
+
+.etiquetaEstadistica {
+  font-family: var(--fuenteMono);
+  font-size: .65rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--colorTextoMuted);
+  margin-top: .25rem;
+}
+
+/* ── Fila de ejercicio ──────────────────────────────────── */
+.campoEjercicioNombre { margin-bottom: 1rem; }
+
+.filaEjercicio {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: .6rem;
+  align-items: end;
+  margin-bottom: .5rem;
+}
+
+@media (max-width: 600px) {
+  .filaEjercicio { grid-template-columns: 1fr 1fr; gap: .5rem; }
+}
+
+/* ── Cardio — días de la semana ─────────────────────────── */
+.grillaDiasSemanaCardio {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.diaCardio {
+  background: var(--colorSuperficie2);
+  border: 1px solid var(--colorBorde);
+  border-radius: 6px;
+  padding: .6rem .5rem;
+  transition: all .15s;
+}
+
+.diaCardio.diaSeleccionado {
+  border-color: var(--colorAcento3);
+  background: rgba(91, 141, 238, .1);
+}
+
+.nombreDiaCardio {
+  font-family: var(--fuenteMono);
+  font-size: .65rem;
+  text-transform: uppercase;
+  color: var(--colorTextoMuted);
+  text-align: center;
+}
+
+.totalMinutosCardio {
+  font-family: var(--fuenteTitulo);
+  font-size: 1.3rem;
+  text-align: center;
+  color: var(--colorAcento3);
+  margin-top: .25rem;
+}
+
+.unidadMinutosCardio {
+  font-family: var(--fuenteMono);
+  font-size: .6rem;
+  color: var(--colorTextoMuted);
+  text-align: center;
+}
+
+/* ── Grilla de asistencia mensual ───────────────────────── */
+.grillaAsistencia {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .4rem;
+  text-align: center;
+}
+
+.etiquetaDiaSemana {
+  font-family: var(--fuenteMono);
+  font-size: .65rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--colorTextoMuted);
+  padding: .2rem 0;
+}
+
+.celdaAsistencia {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  border: 1px solid var(--colorBorde);
+  background: var(--colorSuperficie2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all .15s;
+}
+
+.celdaAsistencia:hover {
+  border-color: var(--colorAcento);
+  transform: scale(1.05);
+}
+
+.celdaAsistencia.fue {
+  background: rgba(200, 241, 53, .12);
+  border-color: var(--colorAcento);
+}
+
+.celdaAsistencia.falto {
+  background: rgba(255, 71, 87, .1);
+  border-color: var(--colorPeligro);
+}
+
+.celdaAsistencia.inactiva {
+  opacity: .25;
+  cursor: default;
+}
+
+.celdaAsistencia.inactiva:hover {
+  transform: none;
+  border-color: var(--colorBorde);
+}
+
+/* ── Botones ────────────────────────────────────────────── */
+.filaBotons {
+  display: flex;
+  gap: .6rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.boton {
+  font-family: var(--fuenteMono);
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .6rem 1.4rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.botonPrimario {
+  background: var(--colorAcento);
+  color: #0e0f12;
+  font-weight: 500;
+}
+
+.botonPrimario:hover {
+  background: #d4ff40;
+  transform: translateY(-1px);
+}
+
+.botonSecundario {
+  background: transparent;
+  color: var(--colorTextoMuted);
+  border: 1px solid var(--colorBorde);
+}
+
+.botonSecundario:hover {
+  border-color: var(--colorTexto);
+  color: var(--colorTexto);
+}
+
+/* ── Pestañas de mes ────────────────────────────────────── */
+.contenedorPestaniasMes {
+  display: flex;
+  gap: .35rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.pestaniaMes {
+  font-family: var(--fuenteMono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .35rem .8rem;
+  border-radius: 4px;
+  border: 1px solid var(--colorBorde);
+  background: var(--colorSuperficie2);
+  color: var(--colorTextoMuted);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.pestaniaMes:hover {
+  border-color: var(--colorTexto);
+  color: var(--colorTexto);
+}
+
+.pestaniaMes.activa {
+  background: var(--colorAcento3);
+  border-color: var(--colorAcento3);
+  color: #fff;
+}
+
+/* ── Sección de ejercicio en progresión ─────────────────── */
+.seccionEjercicio { margin-bottom: 1.5rem; }
+
+.nombreEjercicioProgresion {
+  font-family: var(--fuenteTitulo);
+  font-size: 1rem;
+  letter-spacing: .06em;
+  color: var(--colorAcento2);
+  margin-bottom: .6rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.wrapperBarraProgreso { margin-bottom: .75rem; }
+
+.cabeceraBarraProgreso {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: .35rem;
+}
+
+.textoBarraProgreso { font-size: .78rem; font-weight: 500; }
+
+.valorBarraProgreso {
+  font-family: var(--fuenteMono);
+  font-size: .72rem;
+  color: var(--colorTextoMuted);
+}
+
+.pistaBarraProgreso {
+  height: 6px;
+  background: var(--colorBorde);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.rellenoBarraProgreso {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .6s ease;
+  background: var(--colorAcento2);
+}
+
+.resumenEjercicio {
+  font-family: var(--fuenteMono);
+  font-size: .7rem;
+  color: var(--colorTextoMuted);
+  margin-top: .5rem;
+  margin-bottom: 1.25rem;
+}
+
+.resumenEjercicio .valorMaximo { color: var(--colorAcento); }
+
+/* ── Historial ──────────────────────────────────────────── */
+.itemHistorial {
+  background: var(--colorSuperficie2);
+  border: 1px solid var(--colorBorde);
+  border-radius: 6px;
+  padding: .875rem 1.1rem;
+  margin-bottom: .6rem;
+}
+
+.fechaItemHistorial {
+  font-family: var(--fuenteMono);
+  font-size: .7rem;
+  color: var(--colorAcento);
+  margin-bottom: .3rem;
+}
+
+.grupoItemHistorial {
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+.contenedorBadgesHistorial {
+  display: flex;
+  gap: .35rem;
+  flex-wrap: wrap;
+  margin-top: .4rem;
+}
+
+.badgeHistorial {
+  font-family: var(--fuenteMono);
+  font-size: .62rem;
+  padding: .15rem .45rem;
+  border-radius: 3px;
+  letter-spacing: .05em;
+}
+
+.badgeLima   { background: rgba(200, 241, 53, .15); color: var(--colorAcento); }
+.badgeNaranja { background: rgba(255, 107, 53, .15); color: var(--colorAcento2); }
+.badgeAzul   { background: rgba(91, 141, 238, .15); color: var(--colorAcento3); }
+.badgeRojo   { background: rgba(255, 71, 87, .15);  color: var(--colorPeligro); }
+.badgeGris   { background: var(--colorSuperficie1); color: var(--colorTextoMuted); }
+
+.notasItemHistorial {
+  font-size: .78rem;
+  color: var(--colorTextoMuted);
+  margin-top: .4rem;
+  line-height: 1.5;
+}
+
+/* ── Rutina semanal ─────────────────────────────────────── */
+.tarjetaRutinaDia {
+  border: 1px solid var(--colorBorde);
+  border-radius: var(--radiosBorde);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.cabeceraRutinaDia {
+  padding: .75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  cursor: pointer;
+}
+
+.tituloRutinaDia {
+  font-family: var(--fuenteTitulo);
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+}
+
+.badgeGrupoMuscular {
+  font-family: var(--fuenteMono);
+  font-size: .65rem;
+  letter-spacing: .1em;
+  padding: .2rem .55rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.badgeGrupoMuscular.lunes,
+.badgeGrupoMuscular.miercoles,
+.badgeGrupoMuscular.viernes {
+  background: rgba(200, 241, 53, .15);
+  color: var(--colorAcento);
+}
+
+.badgeGrupoMuscular.martes {
+  background: rgba(91, 141, 238, .15);
+  color: var(--colorAcento3);
+}
+
+.badgeGrupoMuscular.jueves {
+  background: rgba(255, 107, 53, .15);
+  color: var(--colorAcento2);
+}
+
+.flechaRutinaDia {
+  margin-left: auto;
+  color: var(--colorTextoMuted);
+  font-size: 1rem;
+}
+
+.cuerpoRutinaDia {
+  padding: .75rem 1.25rem 1rem;
+  border-top: 1px solid var(--colorBorde);
+  display: none;
+}
+
+.cuerpoRutinaDia.abierto { display: block; }
+
+.listaEjerciciosRutina { list-style: none; }
+
+.itemEjercicioRutina {
+  padding: .45rem 0;
+  border-bottom: 1px solid var(--colorBorde);
+  font-size: .85rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.itemEjercicioRutina:last-child { border-bottom: none; }
+
+.itemEjercicioRutina::before {
+  content: '→';
+  color: var(--colorAcento);
+  font-family: var(--fuenteMono);
+  flex-shrink: 0;
+}
+
+.seriesEjercicioRutina {
+  font-family: var(--fuenteMono);
+  font-size: .7rem;
+  color: var(--colorAcento2);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── Toast de notificaciones ────────────────────────────── */
+#contenedorToast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 500;
+  background: var(--colorAcento);
+  color: #0e0f12;
+  font-family: var(--fuenteMono);
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  padding: .75rem 1.25rem;
+  border-radius: 6px;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all .3s cubic-bezier(.16, 1, .3, 1);
+  pointer-events: none;
+  max-width: 280px;
+}
+
+#contenedorToast.visible { transform: translateY(0); opacity: 1; }
+#contenedorToast.error   { background: var(--colorPeligro); color: #fff; }
+
+/* ── Estado vacío ───────────────────────────────────────── */
+.mensajeVacio {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--colorTextoMuted);
+  font-size: .85rem;
+  font-family: var(--fuenteMono);
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--colorFondo); }
+::-webkit-scrollbar-thumb { background: var(--colorBorde); border-radius: 3px; }
+
+/* ── Estado del día ─────────────────────────────────────── */
+.bannerEstadoDia {
+  padding: .8rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--colorBorde);
+  border-radius: var(--radiosBorde);
+  font-family: var(--fuenteMono);
+  font-size: .85rem;
+}
+.bannerPendiente { background: rgba(255, 107, 53, .12); border-color: var(--colorAcento2); color: var(--colorAcento2); }
+.bannerCompleto  { background: rgba(46, 213, 115, .12); border-color: var(--colorExito);   color: var(--colorExito); }
+.bannerLibre     { background: var(--colorSuperficie1); color: var(--colorTextoMuted); }
+
+/* ── Recordatorio diario ────────────────────────────────── */
+.filaRecordatorio { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.etiquetaInterruptor { display: flex; align-items: center; gap: .6rem; font-size: .9rem; cursor: pointer; }
+.etiquetaInterruptor input { width: 1.2rem; height: 1.2rem; accent-color: var(--colorAcento); }
+.textoAyudaRecordatorio { margin-top: .75rem; font-family: var(--fuenteMono); font-size: .72rem; color: var(--colorTextoMuted); }
+
+/* ── Selector de ejercicio: grupo → ejercicio → variante ── */
+.bloqueSelectorEjercicio { margin-bottom: 1rem; }
+.campoSelectorEjercicio { margin-top: .9rem; }
+.chipsSelector { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chipSelector {
+  font-family: var(--fuenteMono);
+  font-size: .78rem;
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  border: 1px solid var(--colorBorde);
+  background: var(--colorSuperficie2);
+  color: var(--colorTexto);
+  cursor: pointer;
+  transition: all .15s;
+}
+.chipSelector:hover { border-color: var(--colorAcento); }
+.chipSelector.activo { background: var(--colorAcento); border-color: var(--colorAcento); color: #0e0f12; font-weight: 500; }
+.chipNuevo { border-style: dashed; color: var(--colorTextoMuted); }
+
+/* ── Control de kilos con − / + ─────────────────────────── */
+.controlKg { display: flex; align-items: stretch; gap: .25rem; }
+.controlKg input { flex: 1; min-width: 0; text-align: center; }
+.botonKg {
+  min-width: 2.3rem;
+  background: var(--colorSuperficie2);
+  border: 1px solid var(--colorBorde);
+  border-radius: 4px;
+  color: var(--colorTexto);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.botonKg:active { background: var(--colorAcento); color: #0e0f12; }
+.filaEjercicioSuelto { grid-template-columns: 1.4fr 1.6fr 1fr 1fr; }
+
+/* ── Rutina del día ─────────────────────────────────────── */
+.textoAyudaRutinaDelDia { margin: .75rem 0 .25rem; font-family: var(--fuenteMono); font-size: .72rem; color: var(--colorTextoMuted); }
+.filaRutinaDelDia { display: flex; flex-direction: column; gap: .55rem; padding: .8rem 0; border-bottom: 1px solid var(--colorBorde); }
+.lineaSuperiorFilaRutina { display: flex; align-items: center; gap: .6rem; }
+.nombreRutinaEj { flex: 1; font-size: .95rem; }
+.filaMarcada .nombreRutinaEj { color: var(--colorAcento); }
+.checkEjercicioRutina { width: 1.5rem; height: 1.5rem; accent-color: var(--colorAcento); }
+.botonQuitarFila { background: transparent; border: none; color: var(--colorTextoMuted); font-size: 1rem; cursor: pointer; padding: .3rem .5rem; }
+.botonQuitarFila:hover { color: var(--colorPeligro); }
+.lineaInferiorFilaRutina { display: grid; grid-template-columns: 1.3fr 1.5fr .9fr; gap: .5rem; align-items: center; padding-left: 2.1rem; }
+.selectVarianteRutina { width: 100%; min-width: 0; }
+.inputRutinaEj {
+  width: 100%;
+  min-width: 0;
+  padding: .55rem .5rem;
+  background: var(--colorSuperficie2);
+  border: 1px solid var(--colorBorde);
+  border-radius: var(--radiosBorde);
+  color: var(--colorTexto);
+  font-family: var(--fuenteMono);
+  font-size: .85rem;
+}
+.detallesAgregarEjercicio { margin-top: 1rem; padding: .8rem 1rem; border: 1px dashed var(--colorBorde); border-radius: var(--radiosBorde); }
+.detallesAgregarEjercicio > summary { cursor: pointer; font-family: var(--fuenteMono); font-size: .8rem; color: var(--colorAcento); }
+.detallesAgregarEjercicio .chipsSelector:first-child { margin-top: .9rem; }
+.botonAgregarAlDia { margin-top: 1rem; }
+
+/* ── Celular: navegación deslizable y filas más compactas ── */
+@media (max-width: 600px) {
+  nav { flex-direction: column; align-items: stretch; gap: .5rem; padding: .6rem .75rem; }
+  .contenedorPestaniasNav { flex-wrap: nowrap; overflow-x: auto; }
+  .pestaniaNav { white-space: nowrap; padding: .6rem .8rem; }
+  .lineaInferiorFilaRutina { grid-template-columns: 1fr 1fr; padding-left: 0; }
+  .selectVarianteRutina { grid-column: 1 / -1; }
+  .filaEjercicioSuelto { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Pantalla de estadísticas ───────────────────────────── */
+.subtituloTiraEstadisticas {
+  margin: 1.1rem 0 .5rem;
+  font-family: var(--fuenteMono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--colorTextoMuted);
+}
+.subtituloTiraEstadisticas:first-child { margin-top: 0; }

@@ -30,8 +30,8 @@ Inspirada en mis propias planillas de Excel que usaba para trackear todo, transf
 
 ```
 gymtracker/
-├── gym.css
-├── gym.js 
+├── styles.css
+├── gymTracker.js 
 ├── index.html    
 └── README.md
 ```
